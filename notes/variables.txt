@@ -1,0 +1,182 @@
+Declaring a variable using var keyword
+======================================================================================
+1. global declaration
+2. functional / local declaration
+3. scope
+
+Declaring a variable using var keyword inside a function (functional/local declaration)
+---------------------------------------------------------------------------------------
+Example code 1:
+================
+function foo(){
+    var x=10;
+}
+foo();
+console.log(x);
+
+output :
+================
+console.log(x)
+            ^
+ReferenceError: x is not defined
+    at Object.<anonymous> (C:\Users\venkatesh_swaminatha\Desktop\js\variables\learnVariables.js:17:13)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+We are getting this exception as x is defined within the function scope and not as a global scope
+
+Example code 2 :
+==========================
+var browser="chrome";
+var browser="firefox";
+browser="edge";
+
+console.log(browser);
+
+output :
+==========================
+firefox
+edge
+
+Exampe code 3 :
+==========================
+var g;
+g="hello world !";
+console.log(g)
+
+output :
+==========================
+hello world !
+
+Example code 4 :
+============================
+var flag="hey kaushik";
+var t1=4;
+if(t1>3){
+    var flag="hey Venkatesh"
+}
+console.log(flag)
+
+output :
+===========================
+hey Venkatesh
+
+Based on the above example(4) initailly we have declared and assigned the flag as "hey Kaushik"
+now we have a condition to be satisfied and if the condition is satisfied the we are re-declaring and re-assigning the flag with "hey Vennkatesh"
+The issue here is whenever the conditon is satisfied the flag is re-assigned with "hey Venkatesh"
+So in case you want to use the flag with "Hey kaushik" you can't.This is the disadvantage of re-decalring multiple times the same variable using var
+
+1.We have declared browser using var keyword globally so the output is success.
+2.Any variable declared using var can be re-declared and re-assigned.
+3.We have re-declared the variable browser as "firefox" and also re-assigned to "edge"
+
+Conclusion :
+------------
+1.var keyword allows re-declaration and re-assignment fully allowed.
+2.var keyword when declared within any function belongs to the function only.
+
+
+Declaring a variable using let keyword
+=========================================================================================
+scope : blocked scope {}
+
+Example program 1:
+======================
+let m="kaushik";
+let time=4;
+if(time>3){
+    let msg="hello";
+}
+console.log(m);
+console.log(msg)
+
+here are have declared the variable m as let and assigned as "kaushik".
+while the condition is true we are creating a new variable msg which is of let (scope of let within {} only)
+while printing m we can see that let m which is "kaushik" is not altered and can be used anytime and anywhere
+but trying to print msg which is within the scope of block {} is throwing error as the scope is defined within the block {} only
+
+console.log(msg)
+            ^
+ReferenceError: msg is not defined
+    at Object.<anonymous> (C:\Users\venkatesh_swaminatha\Desktop\js\variables\learnVariables.js:53:13)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Example program 2:
+=======================
+let m="kaushik";
+let time=4;
+if(time>3){
+    let m="hello";
+}
+console.log(m);
+
+output:
+=======================
+kaushik
+
+1.From the above example even after the m being re-declared as let the output is success bcse the m declared within the {} block scope will
+be considered as a new m rather than linking it to the once declared globally.
+2.Also we can see the global m un-altered as it is declared as global
+
+1.Once a variable declared with let it cannot be re-declared but can be re-assigned in the global level.
+2.A variable with the same name can be re-declared only inside a block level {}
+
+Declaring a variable using let keyword
+=========================================================================================
+A variable can neither be re-declared nor re-assigned when declared with const
+Similar to final keyword in Java
+
+Example code 1:
+=======================
+const n="Kaushik"
+n="Babbi"
+console.log(n)
+
+output :
+=======================
+n="Babbi"
+ ^
+TypeError: Assignment to constant variable.
+    at Object.<anonymous> (C:\Users\venkatesh_swaminatha\Desktop\js\variables\learnVariables.js:55:2)
+    at Module._compile (node:internal/modules/cjs/loader:1688:14)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
+
+Example code 2:
+============================
+const n="Kaushik"
+const n="Babbi"
+console.log(n)
+
+Output :
+===========================
+const n="Babbi"
+      ^
+SyntaxError: Identifier 'n' has already been declared
+    at wrapSafe (node:internal/modules/cjs/loader:1620:18)
+    at Module._compile (node:internal/modules/cjs/loader:1662:20)
+    at Object..js (node:internal/modules/cjs/loader:1820:10)
+    at Module.load (node:internal/modules/cjs/loader:1423:32)
+    at Function._load (node:internal/modules/cjs/loader:1246:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49
